@@ -33,20 +33,21 @@ namespace Domein.RealisationRepositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<int> AddProductAsync(string name, decimal price, decimal discount, int subcategoryId)
+        public async Task<int> AddProductAsync(string name, decimal price, decimal discount, int subcategoryId, string unitType, DateTime? discountStartDate, DateTime? discountEndDate)
         {
             var result = await _context.Database.ExecuteSqlRawAsync(
-                "EXEC AddProduct @Name={0}, @Price={1}, @Discount={2}, @SubcategoryId={3}",
-                name, price, discount, subcategoryId);
+                "EXEC AddProduct @Name={0}, @Price={1}, @Discount={2}, @SubcategoryId={3}, @UnitType={4}, @DiscountStartDate={5}, @DiscountEndDate={6}",
+                name, price, discount, subcategoryId, unitType, discountStartDate, discountEndDate);
             return result;
         }
 
-        public async Task UpdateProductAsync(int id, string name, decimal price, decimal discount, int subcategoryId)
+        public async Task UpdateProductAsync(int id, string name, decimal price, decimal discount, int subcategoryId, string unitType, DateTime? discountStartDate, DateTime? discountEndDate)
         {
             await _context.Database.ExecuteSqlRawAsync(
-                "EXEC UpdateProduct @Id={0}, @Name={1}, @Price={2}, @Discount={3}, @SubcategoryId={4}",
-                id, name, price, discount, subcategoryId);
+                "EXEC UpdateProduct @Id={0}, @Name={1}, @Price={2}, @Discount={3}, @SubcategoryId={4}, @UnitType={5}, @DiscountStartDate={6}, @DiscountEndDate={7}",
+                id, name, price, discount, subcategoryId, unitType, discountStartDate, discountEndDate);
         }
+
 
         public async Task DeleteProductAsync(int id)
         {
