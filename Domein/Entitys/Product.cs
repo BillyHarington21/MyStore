@@ -13,6 +13,10 @@ namespace Domein.Entitys
         public decimal RegularPrice { get; set; } 
         public decimal? Discount { get; set; }
         public decimal DiscounedPrice => Discount.HasValue ? RegularPrice - (RegularPrice * Discount.Value / 100) : RegularPrice;
+        public string UnitType { get; set; } = "Piece"; 
+        public DateTime? DiscountStartDate { get; set; } 
+        public DateTime? DiscountEndDate { get; set; }
+        public byte[]? Image { get; set; }
         public int SubcategoryId { get; set; }
         public Subcategory Subcategory { get; set; } = null!;
     }
