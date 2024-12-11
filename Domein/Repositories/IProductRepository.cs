@@ -11,8 +11,8 @@ namespace Domein.Repositories
     {
         Task<IEnumerable<Product>> GetProductsAsync();
         Task<Product?> GetProductByIdAsync(int id);
-        Task<int> AddProductAsync(string name, decimal price, decimal discount, int subcategoryId);
-        Task UpdateProductAsync(int id, string name, decimal price, decimal discount, int subcategoryId);
+        Task<int> AddProductAsync(Product product);
+        Task UpdateProductAsync(Product product);
         Task DeleteProductAsync(int id);
     }
 }
