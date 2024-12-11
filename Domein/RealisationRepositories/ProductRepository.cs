@@ -52,6 +52,7 @@ namespace Domein.RealisationRepositories
                   product.Image);
         }
 
+
         public async Task DeleteProductAsync(int id)
         {
             await _context.Database.ExecuteSqlRawAsync(
