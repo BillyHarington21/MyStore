@@ -12,7 +12,7 @@ namespace Domein.Entitys
         public string Name { get; set; } = string.Empty;
         public decimal RegularPrice { get; set; } 
         public decimal? Discount { get; set; }
-        public decimal DiscounedPrice {  get; set; }
+        public decimal? DiscountedPrice {  get; set; }
         public string UnitType { get; set; } = "Count";
         public DateTime? DiscountStartDate { get; set; }
         public DateTime? DiscountEndDate { get; set; }

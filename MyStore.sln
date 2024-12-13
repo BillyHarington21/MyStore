@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore", "MyStore\MyStore.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domein", "Domein\Domein.csproj", "{73EF1354-FCA0-4B51-ADA9-AE6D8F2F9931}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplication", "Aplication\Aplication.csproj", "{1E09C17E-616C-427F-BABB-4AFC879D8E43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aplication", "Aplication\Aplication.csproj", "{1E09C17E-616C-427F-BABB-4AFC879D8E43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

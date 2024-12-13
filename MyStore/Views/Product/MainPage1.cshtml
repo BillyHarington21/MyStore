@@ -1,0 +1,96 @@
+﻿@using Aplication.DTO
+
+@model IEnumerable<ProductDTO>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Список продуктов";
+}
+
+<a href="/Product/EditDeleteCategory" class="btn btn-secondary">Управление категориями</a>
+
+<form asp-action="MainPage1" asp-controller="Product" method="get">
+    <div class="row mb-3">
+        <!-- Категория -->
+        <div class="col-md-4">
+            <label for="categorySelect" class="form-label">Category</label>
+            <select id="categorySelect" name="categoryId" class="form-select">
+                <option value="">All</option>
+                @foreach (var category in ViewBag.Category)
+                {
+                    <option value="@category.Id" @(category.Id == ViewBag.SelectedCategory ? "selected" : "")>
+                        @category.Name
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!-- Подкатегория -->
+        <div class="col-md-4">
+            <label for="subcategorySelect" class="form-label">Subcategory</label>
+            <select id="subcategorySelect" name="subcategoryId" class="form-select">
+                <option value="">All</option>
+                @foreach (var subcategory in ViewBag.Subcategory)
+                {
+                    <option value="@subcategory.Id" @(subcategory.Id == ViewBag.SelectedSubcategory ? "selected" : "")>
+                        @subcategory.Name
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!-- Сортировка по цене -->
+        <div class="col-md-4">
+            <label for="priceSort" class="form-label">Sort Price by:</label>
+            <select id="priceSort" name="priceSort" class="form-select">
+                <option value="">None sort</option>
+                <option value="asc" @(ViewBag.PriceSort == "asc" ? "selected" : "")> From max price</option>
+                <option value="desc" @(ViewBag.PriceSort == "desc" ? "selected" : "")>From min price</option>
+                <option value="under5" @(ViewBag.PriceSort == "under5" ? "selected" : "")>До $5.00</option>
+                <option value="under10" @(ViewBag.PriceSort == "under10" ? "selected" : "")>До $10.00</option>
+                <option value="under15" @(ViewBag.PriceSort == "under15" ? "selected" : "")>До $15.00</option>
+            </select>
+        </div>
+
+        <!-- Кнопка -->
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Применить</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Unit type</th>
+            <th>Discounted Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(product.ImageBase64))
+                    {
+                        <img src="@product.ImageBase64" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
+                    }
+                    else
+                    {
+                        <span>Нет изображения</span>
+                    }
+                </td>
+                <td>
+                    <a href="/Product/DetailsProduct/@product.Id">@product.Name</a>
+                </td>
+                <td>@product.RegularPrice</td>
+                <td>@product.UnitType</td>
+                <td>@product.DiscountedPrice</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

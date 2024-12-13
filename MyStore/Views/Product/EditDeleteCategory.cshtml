@@ -1,0 +1,52 @@
+﻿@using Aplication.DTO
+
+@model IEnumerable<CategoryDTO>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Редактировать и удалить категории";
+}
+
+<h1>Управление категориями</h1>
+
+<div class="row">
+    <!-- Список существующих категорий -->
+    <div class="col-md-6">
+        <h3>Список категорий</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td>@category.Name</td>
+                        <td>
+                            <form asp-action="DeleteCategory" asp-controller="Product" method="post">
+                                <input type="hidden" asp-for="id" value="@category.Id" />
+                                <a href="/Product/MainPage1/">Delete</a>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Форма для добавления новой категории -->
+    <div class="col-md-6">
+        <h3>Добавить новую категорию</h3>
+        <form asp-action="CreateCategory" asp-controller="Product" method="post">
+            <div class="mb-3">
+                <label for="Name" class="form-label">Название категории</label>
+                <input type="text" class="form-control" id="Name" asp-for="Name" />
+            </div>
+            <a href="/Product/MainPage1/">Add</a>
+        </form>
+    </div>
+</div>
+

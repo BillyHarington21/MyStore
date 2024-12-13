@@ -45,7 +45,7 @@ namespace Aplication.RealisationServices
             {
                 Name = categoryDto.Name
             };
-            return await _repository.AddCategoryAsync(category.Name);
+            return await _repository.AddCategoryAsync(category);
         }
 
         public async Task UpdateCategoryAsync(CategoryDTO categoryDto)
