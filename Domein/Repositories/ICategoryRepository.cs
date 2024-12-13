@@ -11,7 +11,7 @@ namespace Domein.Repositories
     {
         Task<IEnumerable<Category>> GetCategoriesAsync();
         Task<Category?> GetCategoryByIdAsync(int id);
-        Task<int> AddCategoryAsync(string name);
+        Task<int> AddCategoryAsync(Category category);
         Task UpdateCategoryAsync(int id, string name);
         Task DeleteCategoryAsync(int id);
     }

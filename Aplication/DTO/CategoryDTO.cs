@@ -10,5 +10,6 @@ namespace Aplication.DTO
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
+        public ICollection<SubcategoryDTO> Subcategories { get; set; } = new List<SubcategoryDTO>();
     }
 }

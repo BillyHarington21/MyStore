@@ -12,12 +12,15 @@ namespace Aplication.DTO
         public string Name { get; set; } = string.Empty;
         public decimal RegularPrice { get; set; }
         public decimal? Discount { get; set; }
-        public decimal DiscountedPrice { get; set; } 
+        public decimal? DiscountedPrice { get; set; } 
         public int SubcategoryId { get; set; }
         public string SubcategoryName { get; set; } = string.Empty;
         public string UnitType { get; set; } = "Count";
         public DateTime? DiscountStartDate { get; set; }
         public DateTime? DiscountEndDate { get; set; }
         public byte[]? Image { get; set; }
+        public string? ImageBase64 => Image != null
+        ? $"data:image/jpeg;base64,{Convert.ToBase64String(Image)}"
+        : null;
     }
 }

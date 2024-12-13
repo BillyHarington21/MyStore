@@ -1,6 +1,7 @@
 ﻿using Domein.Context;
 using Domein.Entitys;
 using Domein.Repositories;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,9 +34,10 @@ namespace Domein.RealisationRepositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<int> AddCategoryAsync(string name)
+        public async Task<int> AddCategoryAsync(Category category)
         {
-            var result = await _context.Database.ExecuteSqlRawAsync("EXEC AddCategory @Name={0}", name);
+            var result = await _context.Database.ExecuteSqlRawAsync("EXEC AddCategory @Name", new SqlParameter("@Name", category.Name));
+
             return result;
         }
 

@@ -1,0 +1,54 @@
+﻿@using Aplication.DTO
+
+@model ProductDTO
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>Image</th>
+        <td>
+            @if (!string.IsNullOrEmpty(Model.ImageBase64))
+            {
+                <img src="@Model.ImageBase64" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
+            }
+            else
+            {
+                <span>Нет изображения</span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <th>Price</th>
+        <td>@Model.RegularPrice</td>
+    </tr>
+    <tr>
+        <th>Unit Type</th>
+        <td>@Model.UnitType</td>
+    </tr>
+    <tr>
+        <th>Discouned price</th>
+        <td>@Model.DiscountedPrice</td>
+    </tr>
+    <tr>
+        <th>Discount %</th>
+        <td>@Model.Discount</td>
+    </tr>
+    <tr>
+        <th>Start discount</th>
+        <td>@Model.DiscountStartDate</td>
+    </tr>
+    <tr>
+        <th>End Discount:</th>
+        <td>@Model.DiscountEndDate</td>
+    </tr>
+</table>
+
+<a href="/Product/MainPage1">Вернуться к списку</a>
+

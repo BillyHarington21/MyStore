@@ -29,8 +29,8 @@ namespace Domein.RealisationRepositories
         public async Task<Product?> GetProductByIdAsync(int id)
         {
             return await _context.Products
-                .FromSqlRaw("EXEC GetProductById @Id={0}", id)
-                .FirstOrDefaultAsync();
+                  .FromSqlRaw("SELECT * FROM Products WHERE Id = {0}", id)
+                  .FirstOrDefaultAsync();
         }
 
         public async Task<int> AddProductAsync(Product product)
