@@ -23,12 +23,12 @@ namespace MyStore.Controllers
         [HttpGet]
         public async Task<IActionResult> MainPage1(int? categoryId, int? subcategoryId, string priceSort)
         {
-            // Загружаем все данные
+            
             var products = await _productService.GetAllProductsAsync();
             var subcategories = await _subcategoryService.GetAllSubcategoriesAsync();
             var categories = await _categoryService.GetAllCategoriesAsync();
 
-            // Фильтрация по категории
+            
             if (categoryId.HasValue && categoryId.Value > 0)
             {
                 var subcategoryIds = subcategories
@@ -38,14 +38,12 @@ namespace MyStore.Controllers
 
                 if (subcategoryId.HasValue && subcategoryId.Value > 0)
                 {
-                    // Если выбрана подкатегория, фильтруем по ней
                     products = products
                         .Where(p => p.SubcategoryId == subcategoryId.Value)
                         .ToList();
                 }
                 else
                 {
-                    // Если подкатегория не выбрана, фильтруем по всем подкатегориям категории
                     products = products
                         .Where(p => subcategoryIds.Contains(p.SubcategoryId))
                         .ToList();
@@ -53,8 +51,7 @@ namespace MyStore.Controllers
             }
             else if (subcategoryId.HasValue && subcategoryId.Value > 0)
             {
-                // Если выбрана только подкатегория, фильтруем по её Id
-                products = products
+               products = products
                     .Where(p => p.SubcategoryId == subcategoryId.Value)
                     .ToList();
             }
@@ -84,9 +81,8 @@ namespace MyStore.Controllers
                         break;
                 }
             }
-
-                // Передаём данные в представление
-                ViewBag.Category = categories;
+                
+            ViewBag.Category = categories;
             ViewBag.Subcategory = subcategories.Where(sc => !categoryId.HasValue || sc.CategoryId == categoryId).ToList();
             ViewBag.SelectedCategory = categoryId;
             ViewBag.SelectedSubcategory = subcategoryId;
@@ -105,27 +101,134 @@ namespace MyStore.Controllers
         [HttpGet]
         public async Task<IActionResult> EditDeleteCategory()
         {
-            var categories = await _categoryService.GetAllCategoriesAsync();
-            return View(categories); // Передаем список категорий в представление
+            var categories = await _categoryService.GetAllCategoriesAsync();                    
+
+            return View(categories);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(string Name)
+        public async Task<IActionResult> EditDeleteCategory(string Name, int Id)
         {
-            var newCategory = new CategoryDTO
+            var categories = await _categoryService.GetAllCategoriesAsync();
+
+            if ( Name != null )
             {
-                Name = Name
-            };
+                var newCategory = new CategoryDTO
+                {
+                    Name = Name
+                };
                 await _categoryService.AddCategoryAsync(newCategory);
-                return RedirectToAction("MaimPage1"); // Возвращаемся к списку категорий                        
+            }
+            if (Id != 0)
+                await _categoryService.DeleteCategoryAsync(Id);
+
+            return RedirectToAction("EditDeleteCategory"); 
         }
+      
+          
+        [HttpGet]
+        public async Task<IActionResult> EditProduct(int id)
+        {            
+            var product = await _productService.GetProductByIdAsync(id);
+
+            if (product == null)
+            {
+                return NotFound(); 
+            }
+            return View(product); 
+        }
+
+       
         [HttpPost]
-        public async Task<IActionResult> DeleteCategory(int id)
+        public async Task<IActionResult> EditProduct(ProductDTO productDto)
         {
-            await _categoryService.DeleteCategoryAsync(id);
-            return RedirectToAction("MaimPage1"); // Возвращаемся к списку категорий
+            if (!ModelState.IsValid)
+            {
+                return View(productDto);
+            }
+                        
+            await _productService.UpdateProductAsync(productDto);
+        
+            return RedirectToAction("MainPage1");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {            
+            await _productService.DeleteProductAsync(id);                       
+            return RedirectToAction("MainPage1");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateProduct()
+        {
+            var subcategories = await _subcategoryService.GetAllSubcategoriesAsync();
+                        
+            ViewBag.Subcategories = subcategories;
+            return View(); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(ProductDTO productDto)
+        {
+            
+            await _productService.AddProductAsync(productDto);
+            return RedirectToAction("MainPage1");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditDeleteSubcategory()
+        {
+            var category = await _categoryService.GetAllCategoriesAsync();
+            var subcategories = await _subcategoryService.GetAllSubcategoriesAsync();      
+            ViewBag.Categories = category;
+            return View(subcategories); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditDeleteSubcategory(string Name, int CategoryId, int Id )
+        {
+            var category = await _categoryService.GetAllCategoriesAsync();
+            var subcategories = await _subcategoryService.GetAllSubcategoriesAsync();
+            if (Name != null && CategoryId != 0)
+            {
+                var newSubcategory = new SubcategoryDTO
+                {
+                    Name = Name,
+                    CategoryId = CategoryId
+                };
+
+                await _subcategoryService.AddSubcategoryAsync(newSubcategory);
+            }
+            if (Id != 0)
+                await _subcategoryService.DeleteSubcategoryAsync(Id);
+
+            ViewBag.Categories = category;
+            return RedirectToAction("EditDeleteSubcategory");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateSubcategory(string Name, int CategoryId)
+        {
+            var newSubcategory = new SubcategoryDTO
+            {
+                Name = Name,
+                CategoryId = CategoryId
+            };
+
+            await _subcategoryService.AddSubcategoryAsync(newSubcategory);
+            return RedirectToAction("EditDeleteSubcategory"); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteSubcategory(int id)
+        {
+            await _subcategoryService.DeleteSubcategoryAsync(id);
+            return RedirectToAction("EditDeleteSubcategory"); 
         }
 
 
     }
+
 }
+

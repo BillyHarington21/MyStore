@@ -1,0 +1,55 @@
+﻿@using Aplication.DTO;
+
+@model ProductDTO
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Создание продукта";
+}
+
+<h1>Create product</h1>
+
+<form asp-action="CreateProduct" asp-controller="Product" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" required />
+    </div>
+    <div class="mb-3">
+        <label for="RegularPrice" class="form-label">Price</label>
+        <input type="number" class="form-control" id="RegularPrice" name="RegularPrice" required />
+    </div>
+    <div class="mb-3">
+        <label for="Discount" class="form-label">Discount</label>
+        <input type="number" class="form-control" id="Discount" name="Discount" />
+    </div>
+    <div class="mb-3">
+        <label for="SubcategoryId" class="form-label">select the subcategory in which the product will be included</label>
+        <select id="SubcategoryId" name="SubcategoryId" class="form-select" required>
+            <option value=""></option>
+            @foreach (var subcategory in ViewBag.Subcategories)
+            {
+                <option value="@subcategory.Id">@subcategory.Name</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="UnitType" class="form-label">Unit type</label>
+        <select id="UnitType" name="UnitType" class="form-select">
+            <option value="Weight">Вес</option>
+            <option value="Count">Штука</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="DiscountStartDate" class="form-label">start date discount</label>
+        <input type="date" class="form-control" id="DiscountStartDate" name="DiscountStartDate" />
+    </div>
+    <div class="mb-3">
+        <label for="DiscountEndDate" class="form-label">End date discount</label>
+        <input type="date" class="form-control" id="DiscountEndDate" name="DiscountEndDate" />
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+<a href="/Product/MainPage1" class="btn btn-secondary">back</a>
+

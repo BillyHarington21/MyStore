@@ -28,13 +28,17 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
 app.UseAuthorization();
 
-app.UseRouting();
+// Подключение маршрутов
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers(); // Для маршрутов с атрибутами
+});
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Product}/{action=MainPage1}/{id?}");
+    pattern: "{controller=Product}/{action=MainPage1}/{id?}"); // Явный маршрут
 
 app.Run();

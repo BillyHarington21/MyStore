@@ -37,9 +37,9 @@ namespace Domein.RealisationRepositories
         {
             var result = await _context.Database.ExecuteSqlRawAsync(
                 "EXEC AddProduct @Name={0}, @Price={1}, @Discount={2}," +
-                "@SubcategoryId={3}, @DiscountStartDate={4}, @DiscountEndDate={5}, @image={6}",
-                product.Name, product.RegularPrice, product.Discount, product.SubcategoryId, product.DiscountStartDate, product.DiscountEndDate,
-                product.Image);
+                "@DiscountStartDate={3}, @DiscountEndDate={4}, @UnitType={5}, @SubcategoryId={6}",
+                product.Name, product.RegularPrice, product.Discount, product.DiscountStartDate, product.DiscountEndDate,
+                product.UnitType, product.SubcategoryId);
             return result;
         }
 
@@ -47,9 +47,9 @@ namespace Domein.RealisationRepositories
         {
             await _context.Database.ExecuteSqlRawAsync(
                 "EXEC UpdateProduct @Id={0}, @Name={1}, @Price={2}, @Discount={3}," +
-                "@SubcategoryId={4}, @DiscountStartDate={5}, @DiscountEndDate={5}, @image={6}",
-                product.Id, product.Name, product.RegularPrice, product.Discount, product.SubcategoryId, product.DiscountStartDate, product.DiscountEndDate,
-                  product.Image);
+                "@DiscountStartDate={4}, @DiscountEndDate={5}, @UnitType={6}",
+                product.Id, product.Name, product.RegularPrice, product.Discount, product.DiscountStartDate, product.DiscountEndDate,
+                  product.UnitType);
         }
 
 
