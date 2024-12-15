@@ -1,0 +1,55 @@
+﻿@using Aplication.DTO;
+
+@model ProductDTO
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Редактировать продукт";
+}
+
+<h1>Edit product</h1>
+
+<form asp-action="EditProduct" asp-controller="Product" method="post">
+    
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="RegularPrice" class="form-label">Price</label>
+        <input type="number" class="form-control" id="RegularPrice" name="RegularPrice" value="@Model.RegularPrice" step="0.01" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Discount" class="form-label">Discount (%)</label>
+        <input type="number" class="form-control" id="Discount" name="Discount" value="@Model.Discount" step="0.01" />
+    </div>
+
+    <div class="mb-3">
+        <label for="UnitType" class="form-label">Unit type product</label>
+        <select class="form-select" id="UnitType" name="UnitType" >
+            <option value="Weight" @(Model.UnitType == "Weight" ? "selected" : "")>Weight</option>
+            <option value="Count" @(Model.UnitType == "Count" ? "selected" : "")>Count</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="DiscountStartDate" class="form-label">Start data discount</label>
+        <input type="date" class="form-control" id="DiscountStartDate" name="DiscountStartDate" value="@Model.DiscountStartDate?.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="mb-3">
+        <label for="DiscountEndDate" class="form-label">End data discount</label>
+        <input type="date" class="form-control" id="DiscountEndDate" name="DiscountEndDate" value="@Model.DiscountEndDate?.ToString("yyyy-MM-dd")" />
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Save changes</button>
+</form>
+
+<form asp-action="DeleteProduct" asp-controller="Product" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-danger">Delete product</button>
+</form>

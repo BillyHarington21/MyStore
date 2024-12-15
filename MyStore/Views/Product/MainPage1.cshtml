@@ -7,12 +7,17 @@
     ViewData["Title"] = "Список продуктов";
 }
 
-<a href="/Product/EditDeleteCategory" class="btn btn-secondary">Управление категориями</a>
+
+
+
 
 <form asp-action="MainPage1" asp-controller="Product" method="get">
     <div class="row mb-3">
         <!-- Категория -->
         <div class="col-md-4">
+            <div class="mb-3">
+                <a href="/Product/EditDeleteCategory" class="btn btn-success">Manage Category</a>
+            </div>
             <label for="categorySelect" class="form-label">Category</label>
             <select id="categorySelect" name="categoryId" class="form-select">
                 <option value="">All</option>
@@ -24,9 +29,13 @@
                 }
             </select>
         </div>
+               
 
         <!-- Подкатегория -->
         <div class="col-md-4">
+            <div class="mb-3">
+                <a href="/Product/EditDeleteSubcategory" class="btn btn-success">Manage subcategory</a>
+            </div>
             <label for="subcategorySelect" class="form-label">Subcategory</label>
             <select id="subcategorySelect" name="subcategoryId" class="form-select">
                 <option value="">All</option>
@@ -54,14 +63,19 @@
 
         <!-- Кнопка -->
         <div class="col-md-4 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary">Применить</button>
+            <button type="submit" class="btn btn-primary">submit</button>
         </div>
     </div>
 </form>
 
+<div class="mb-3">
+    <a href="/Product/CreateProduct" class="btn btn-success">Create product</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>Product Name</th>
             <th>Price</th>
             <th>Unit type</th>

@@ -5,6 +5,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h1>Details product</h1>
 
 <table class="table">
     <tr>
@@ -50,5 +51,12 @@
     </tr>
 </table>
 
-<a href="/Product/MainPage1">Вернуться к списку</a>
+<div class="mt-3">
+    <a href="/Product/MainPage1" class="btn btn-secondary">Back</a>
+
+    <!-- Кнопка перехода на страницу редактирования продукта -->
+    <a href="/Product/EditProduct/@Model.Id" class="btn btn-primary">
+        Edit product
+    </a>
+</div>
 

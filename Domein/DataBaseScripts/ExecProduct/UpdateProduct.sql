@@ -3,11 +3,9 @@
     @Name NVARCHAR(255),
     @Price DECIMAL(10, 2),
     @Discount DECIMAL(5, 2),
-    @SubcategoryId INT,
     @UnitType NVARCHAR(50),
     @DiscountStartDate DATE,
-    @DiscountEndDate DATE,
-    @Image VARBINARY(MAX) = NULL
+    @DiscountEndDate DATE
 AS
 BEGIN
     DECLARE @SpecialPrice DECIMAL(10, 2);
@@ -18,10 +16,8 @@ BEGIN
         RegularPrice = @Price,
         Discount = @Discount,
         DiscountedPrice = @SpecialPrice,
-        SubcategoryId = @SubcategoryId,
         UnitType = @UnitType,
         DiscountStartDate = @DiscountStartDate,
-        DiscountEndDate = @DiscountEndDate,
-        Image = @Image
+        DiscountEndDate = @DiscountEndDate
     WHERE Id = @Id;
 END;

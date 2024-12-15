@@ -1,0 +1,62 @@
+﻿@using Aplication.DTO;
+
+@model IEnumerable<SubcategoryDTO>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Управление подкатегориями";
+}
+
+<h1>Manage subcategory</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Subcategory list</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var subcategory in Model)
+                {
+                    <tr>
+                        <td>@subcategory.Name</td>
+                        <td>
+                            <form asp-action="DeleteSubcategory" asp-controller="Product" method="post">
+                                <input type="hidden" name="id" value="@subcategory.Id" />
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <h3>Add new subcategory</h3>
+        <form asp-action="CreateSubcategory" asp-controller="Product" method="post">
+            <div class="mb-3">
+                <label for="Name" class="form-label">Name for Subcategory</label>
+                <input type="text" class="form-control" id="Name" name="Name" />
+            </div>
+            <div class="mb-3">
+                <label for="CategoryId" class="form-label">select the category in which the subcategory will be included</label>
+                <select id="CategoryId" name="CategoryId" class="form-select">
+                    <option value=""></option>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a href="/Product/MainPage1" class="btn btn-secondary">Back</a>
+        </form>        
+    </div>
+       
+</div>
+

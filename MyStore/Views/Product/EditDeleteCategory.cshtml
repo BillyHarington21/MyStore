@@ -7,17 +7,17 @@
     ViewData["Title"] = "Редактировать и удалить категории";
 }
 
-<h1>Управление категориями</h1>
+<h1>Manage category</h1>
 
 <div class="row">
     <!-- Список существующих категорий -->
     <div class="col-md-6">
-        <h3>Список категорий</h3>
+        <h3>Category list</h3>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Название</th>
-                    <th>Действия</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -26,27 +26,29 @@
                     <tr>
                         <td>@category.Name</td>
                         <td>
-                            <form asp-action="DeleteCategory" asp-controller="Product" method="post">
-                                <input type="hidden" asp-for="id" value="@category.Id" />
-                                <a href="/Product/MainPage1/">Delete</a>
+                            <form asp-action="EditDeleteCategory" asp-controller="Product" method="post">
+                                <input type="hidden" name="id" value="@category.Id" />
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-    </div>
-
-    <!-- Форма для добавления новой категории -->
+    </div>   
+    
     <div class="col-md-6">
-        <h3>Добавить новую категорию</h3>
-        <form asp-action="CreateCategory" asp-controller="Product" method="post">
+        <h3>Add new category</h3>
+        <form asp-action="EditDeleteCategory" asp-controller="Product" method="post">
             <div class="mb-3">
-                <label for="Name" class="form-label">Название категории</label>
-                <input type="text" class="form-control" id="Name" asp-for="Name" />
+                <label for="Name" class="form-label">Category name</label>
+                <input type="text" name="Name" asp-for ="Name" class="form-control"/>
             </div>
-            <a href="/Product/MainPage1/">Add</a>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a href="/Product/MainPage1" class="btn btn-secondary">Back</a>
         </form>
     </div>
+
+   
 </div>
 

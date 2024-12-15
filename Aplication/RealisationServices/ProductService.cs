@@ -88,7 +88,6 @@ namespace Aplication.RealisationServices
                 UnitType = productDto.UnitType,
                 DiscountStartDate = productDto.DiscountStartDate,
                 DiscountEndDate = productDto.DiscountEndDate,
-                Image = productDto.Image
             };
 
             await _repository.UpdateProductAsync(product);
