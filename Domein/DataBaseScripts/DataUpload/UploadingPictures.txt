@@ -1,0 +1,29 @@
+﻿
+////// uploading pictures using a script in PowerShell ////// 
+
+
+$folderPath = "C:\Users\Константин\Pictures\Camera Roll\interview"
+
+$filePaths = Get-ChildItem -Path $folderPath -Filter *.jpg
+
+
+$connectionString = "Server=WIN-7L0UJ4EFJQC\\MSSQLSERVER2022;Database=MyStoreDb;Trusted_Connection=True;TrustServerCertificate=True"
+$connection = New-Object System.Data.SqlClient.SqlConnection
+$connection.ConnectionString = $connectionString
+$connection.Open()
+
+foreach ($file in $filePaths) {
+    $filePath = $file.FullName
+    $imageBytes = [System.IO.File]::ReadAllBytes($filePath)
+
+    
+    $sqlCommand = $connection.CreateCommand()
+    $sqlCommand.CommandText = "INSERT INTO ProductImages (Image) VALUES (@Image)"
+    $sqlCommand.Parameters.Add((New-Object Data.SqlClient.SqlParameter("@Image", [System.Data.SqlDbType]::VarBinary, -1))).Value = $imageBytes
+
+    $sqlCommand.ExecuteNonQuery()
+
+    Write-Host "Image $($file.Name) successfully inserted into database."
+}
+
+$connection.Close()
